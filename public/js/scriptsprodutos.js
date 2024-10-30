@@ -180,7 +180,8 @@ function selectMarket() {
     hiddenIdInput.value = selectedMarketId;
 
     // Fecha o modal
-    $('#myModal1').modal('hide');
+    const modal = bootstrap.Modal.getInstance(document.getElementById('myModal1'));
+    modal.hide();
 }
 
 const products = [
@@ -272,5 +273,6 @@ function selectProduct(product) {
     document.getElementById("selected-product-id").value = product.id;
 
     // Verifica se o modal está sendo fechado corretamente
-    $('#myModal').modal('hide'); // Fecha o modal
+    const modal = bootstrap.Modal.getInstance(document.getElementById('myModal'));
+    modal.hide();
 }
