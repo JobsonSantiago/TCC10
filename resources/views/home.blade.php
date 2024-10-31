@@ -149,7 +149,7 @@
     <!-- Barra de Pesquisa e opções -->
     <div class="container text-center mt-4">
         <form action="{{ route('search') }}" class="d-inline" method="GET">
-            <div class="input-group input-group-lg">
+            <div class="input-group input-group-lg" id="produtos-pesquisa">
                 <select name = "pesquisaProdutos" class="form-select" aria-label="Default select example">
                     <option value ="0">Selecione o produto que deseja pesquisar:</option>
                     <option value="Achocolatado">Achocolatado</option>
@@ -196,7 +196,7 @@
 <h2 class="text-center mb-4">Principais Produtos</h2>
         
 <!-- Primeira linha de produtos -->
-<div class="row">
+<div class="row" >
     <!-- Produto 1 -->
     <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-4">
         <div class="card text-left h-100">

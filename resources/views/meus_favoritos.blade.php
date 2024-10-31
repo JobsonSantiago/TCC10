@@ -9,6 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Inclusão do JavaScript -->
+    <script src="{{ asset('js/scriptsprodutos.js') }}"></script>
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
@@ -194,6 +196,8 @@
                 <li><a href="dashboard">Dados pessoais</a></li>
                 <li class="active"><a href="meus_favoritos">Favoritos</a></li>
                 <li><a href="logout">Sair</a></li>
+                <button type="button" class="btn btn-primary" onclick="doDemo(this);">Mudar Tema</button>
+
             </ul>
         </div>
 

@@ -255,8 +255,8 @@
 </nav>
 
     <!-- Form Card -->
-    <div class="container d-flex justify-content-center pt-5" style="min-height: 50vh;">
-        <div class="form-card mt-5">
+    <div class="container d-flex justify-content-center pt-5" style="min-height: 50vh;" >
+        <div class="form-card mt-5" id="cadastro-container">
             <h2 class="text-start mb-4 text-primary">Cadastre o Valor do Produto</h2>
 
             <form method="POST" action="{{ route('cadastro_preco') }}">

@@ -106,21 +106,46 @@
 
         <!-- Barra de Pesquisa -->
         <div class="container mt-4">
-            <input type="text" id="produtoDigitado" class="form-control" placeholder="Pesquisar produto..." onkeyup="pesquisar()"> <br>
-            <input type="text" id="mercadoDigitado" class="form-control" placeholder="Pesquisar mercado..." onkeyup="pesquisar()">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <input type="text" id="produtoDigitado" class="form-control mb-2" placeholder="Pesquisar produto..." onkeyup="pesquisar()">
+                    <input type="text" id="mercadoDigitado" class="form-control" placeholder="Pesquisar mercado..." onkeyup="pesquisar()">
+                </div>
+            </div>
         </div>
-        <br>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="opcaoBarato" checked onchange="ordenarProdutos()">
-            <label class="form-check-label" for="opcaoBarato">
-                Organizar do mais barato ao mais caro
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="opcaoCaro" onchange="ordenarProdutos()">
-            <label class="form-check-label" for="opcaoCaro">
-                Organizar do mais caro ao mais barato
-            </label>
+
+        <!-- Opções de Ordenação -->
+        <div class="container mt-3">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="d-flex justify-content-between">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="opcaoBarato" checked onchange="ordenarProdutos()">
+                            <label class="form-check-label" for="opcaoBarato">
+                                Mais barato ao mais caro
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="opcaoCaro" onchange="ordenarProdutos()">
+                            <label class="form-check-label" for="opcaoCaro">
+                                Mais caro ao mais barato
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="opcaoRecente" onchange="ordenarProdutos()">
+                            <label class="form-check-label" for="opcaoRecente">
+                                Mais recente ao mais antigo
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="opcaoAntigo" onchange="ordenarProdutos()">
+                            <label class="form-check-label" for="opcaoAntigo">
+                                Mais antigo ao mais recente
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="container text-center mt-4">
@@ -140,7 +165,7 @@
                                 </button>
                             </form>
                             <br>
-                            <p class="product-name">Achocolatado em Pó Italac 400G</p>
+                            <p class="product-name">Achocolatado em Pó Italac 400G</p> <br>
                             @php
                             // apresentando a media de preços
                             $precomedio = App\Models\ProdutosCaracteristicas::where('id_mercado', 1) // ID do mercado
@@ -196,7 +221,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-4 col-md-6" id="square2">
                     <div class="product-card">
                         <img src="images/pr_achocolatado.png" alt="Imagem do Produto 2">
                         <div class="product-info">
@@ -211,7 +236,7 @@
                             </form>
 
                             <br>
-                            <p class="product-name">Achocolatado em Pó Italac 400G</p>
+                            <p class="product-name">Achocolatado em Pó Italac 400G</p> <br>
                             @php
                             // apresentando a media de preços
                             $precomedio = App\Models\ProdutosCaracteristicas::where('id_mercado', 2) // ID do mercado
@@ -281,7 +306,7 @@
                                 </button>
                             </form>
                             <br>
-                            <p class="product-name">Achocolatado em Pó Italac 400G</p>
+                            <p class="product-name">Achocolatado em Pó Italac 400G</p> <br>
                             @php
                             // apresentando a media de preços
                             $precomedio = App\Models\ProdutosCaracteristicas::where('id_mercado', 3) // ID do mercado
@@ -351,7 +376,7 @@
                                 </button>
                             </form>
                             <br>
-                            <p class="product-name">Achocolatado em Pó Italac 400G</p>
+                            <p class="product-name">Achocolatado em Pó Italac 400G</p> <br>
                             @php
                             // apresentando a media de preços
                             $precomedio = App\Models\ProdutosCaracteristicas::where('id_mercado', 4) // ID do mercado
@@ -498,7 +523,7 @@
                             ->where('id_produto', 18) // ID do produto
                             ->avg('preco');
                             $data = App\Models\ProdutosCaracteristicas::where('id_mercado', 2) // ID do mercado
-                            ->where('id_produto', 17) // ID do produto
+                            ->where('id_produto', 18) // ID do produto
                             ->latest('updated_at')
                             ->value('updated_at');
 
@@ -568,7 +593,7 @@
                             ->where('id_produto', 18) // ID do produto
                             ->avg('preco');
                             $data = App\Models\ProdutosCaracteristicas::where('id_mercado', 3) // ID do mercado
-                            ->where('id_produto', 17) // ID do produto
+                            ->where('id_produto', 18) // ID do produto
                             ->latest('updated_at')
                             ->value('updated_at');
 
@@ -638,7 +663,7 @@
                             ->where('id_produto', 18) // ID do produto
                             ->avg('preco');
                             $data = App\Models\ProdutosCaracteristicas::where('id_mercado', 4) // ID do mercado
-                            ->where('id_produto', 17) // ID do produto
+                            ->where('id_produto', 18) // ID do produto
                             ->latest('updated_at')
                             ->value('updated_at');
 

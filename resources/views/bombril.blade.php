@@ -108,21 +108,46 @@
 
         <!-- Barra de Pesquisa -->
         <div class="container mt-4">
-            <input type="text" id="produtoDigitado" class="form-control" placeholder="Pesquisar produto..." onkeyup="pesquisar()"> <br>
-            <input type="text" id="mercadoDigitado" class="form-control" placeholder="Pesquisar mercado..." onkeyup="pesquisar()">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <input type="text" id="produtoDigitado" class="form-control mb-2" placeholder="Pesquisar produto..." onkeyup="pesquisar()">
+                    <input type="text" id="mercadoDigitado" class="form-control" placeholder="Pesquisar mercado..." onkeyup="pesquisar()">
+                </div>
+            </div>
         </div>
-        <br>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="opcaoBarato" checked onchange="ordenarProdutos()">
-            <label class="form-check-label" for="opcaoBarato">
-                Organizar do mais barato ao mais caro
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="opcaoCaro" onchange="ordenarProdutos()">
-            <label class="form-check-label" for="opcaoCaro">
-                Organizar do mais caro ao mais barato
-            </label>
+
+        <!-- Opções de Ordenação -->
+        <div class="container mt-3">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="d-flex justify-content-between">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="opcaoBarato" checked onchange="ordenarProdutos()">
+                            <label class="form-check-label" for="opcaoBarato">
+                                Mais barato ao mais caro
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="opcaoCaro" onchange="ordenarProdutos()">
+                            <label class="form-check-label" for="opcaoCaro">
+                                Mais caro ao mais barato
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="opcaoRecente" onchange="ordenarProdutos()">
+                            <label class="form-check-label" for="opcaoRecente">
+                                Mais recente ao mais antigo
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="opcaoAntigo" onchange="ordenarProdutos()">
+                            <label class="form-check-label" for="opcaoAntigo">
+                                Mais antigo ao mais recente
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <br>
@@ -161,16 +186,7 @@
                         $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
                         }
                         @endphp
-                        <p class="product-price">R$ {{ number_format($precomedio, 2, ',', '.') }}</p>
-                        <p class="product-date">Ultima atualização de preço: {{ $data ? $data->format('d/m/Y H:i:s') : 'Data não disponível' }}</p>
-
-                        // Ajustar o timezone
-                        if ($data) {
-
-
-                        $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
-                        }
-                        @endphp
+                        
                         <p class="product-price">R$ {{ number_format($precomedio, 2, ',', '.') }}</p>
                         <p class="product-date">Ultima atualização de preço: {{ $data ? $data->format('d/m/Y H:i:s') : 'Data não disponível' }}</p>
                         <p class="market-name">Mercado Noemia</p>
@@ -238,19 +254,10 @@
                         if ($data) {
 
 
-                        $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
+                       $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
                         }
                         @endphp
-                        <p class="product-price">R$ {{ number_format($precomedio, 2, ',', '.') }}</p>
-                        <p class="product-date">Ultima atualização de preço: {{ $data ? $data->format('d/m/Y H:i:s') : 'Data não disponível' }}</p>
-
-                        // Ajustar o timezone
-                        if ($data) {
-
-
-                        $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
-                        }
-                        @endphp
+                        
                         <p class="product-price">R$ {{ number_format($precomedio, 2, ',', '.') }}</p>
                         <p class="product-date">Ultima atualização de preço: {{ $data ? $data->format('d/m/Y H:i:s') : 'Data não disponível' }}</p>
                         <p class="market-name">Mercado Tietê</p>
@@ -318,19 +325,10 @@
                         if ($data) {
 
 
-                        $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
+                       $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
                         }
                         @endphp
-                        <p class="product-price">R$ {{ number_format($precomedio, 2, ',', '.') }}</p>
-                        <p class="product-date">Ultima atualização de preço: {{ $data ? $data->format('d/m/Y H:i:s') : 'Data não disponível' }}</p>
-
-                        // Ajustar o timezone
-                        if ($data) {
-
-
-                        $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
-                        }
-                        @endphp
+                        
                         <p class="product-price">R$ {{ number_format($precomedio, 2, ',', '.') }}</p>
                         <p class="product-date">Ultima atualização de preço: {{ $data ? $data->format('d/m/Y H:i:s') : 'Data não disponível' }}</p>
                         <p class="market-name">Mercado Economix</p>
@@ -398,19 +396,10 @@
                         if ($data) {
 
 
-                        $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
+                       $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
                         }
                         @endphp
-                        <p class="product-price">R$ {{ number_format($precomedio, 2, ',', '.') }}</p>
-                        <p class="product-date">Ultima atualização de preço: {{ $data ? $data->format('d/m/Y H:i:s') : 'Data não disponível' }}</p>
-
-                        // Ajustar o timezone
-                        if ($data) {
-
-
-                        $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
-                        }
-                        @endphp
+                        
                         <p class="product-price">R$ {{ number_format($precomedio, 2, ',', '.') }}</p>
                         <p class="product-date">Ultima atualização de preço: {{ $data ? $data->format('d/m/Y H:i:s') : 'Data não disponível' }}</p>
                         <p class="market-name">Mercado Atacadinho</p>
@@ -478,19 +467,10 @@
                         if ($data) {
 
 
-                        $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
+                       $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
                         }
                         @endphp
-                        <p class="product-price">R$ {{ number_format($precomedio, 2, ',', '.') }}</p>
-                        <p class="product-date">Ultima atualização de preço: {{ $data ? $data->format('d/m/Y H:i:s') : 'Data não disponível' }}</p>
-
-                        // Ajustar o timezone
-                        if ($data) {
-
-
-                        $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
-                        }
-                        @endphp
+                        
                         <p class="product-price">R$ {{ number_format($precomedio, 2, ',', '.') }}</p>
                         <p class="product-date">Ultima atualização de preço: {{ $data ? $data->format('d/m/Y H:i:s') : 'Data não disponível' }}</p>
                         <p class="market-name">Mercado Noemia</p>
@@ -558,19 +538,10 @@
                         if ($data) {
 
 
-                        $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
+                       $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
                         }
                         @endphp
-                        <p class="product-price">R$ {{ number_format($precomedio, 2, ',', '.') }}</p>
-                        <p class="product-date">Ultima atualização de preço: {{ $data ? $data->format('d/m/Y H:i:s') : 'Data não disponível' }}</p>
-
-                        // Ajustar o timezone
-                        if ($data) {
-
-
-                        $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
-                        }
-                        @endphp
+                        
                         <p class="product-price">R$ {{ number_format($precomedio, 2, ',', '.') }}</p>
                         <p class="product-date">Ultima atualização de preço: {{ $data ? $data->format('d/m/Y H:i:s') : 'Data não disponível' }}</p>
                         <p class="market-name">Mercado Tietê</p>
@@ -638,19 +609,10 @@
                         if ($data) {
 
 
-                        $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
+                       $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
                         }
                         @endphp
-                        <p class="product-price">R$ {{ number_format($precomedio, 2, ',', '.') }}</p>
-                        <p class="product-date">Ultima atualização de preço: {{ $data ? $data->format('d/m/Y H:i:s') : 'Data não disponível' }}</p>
-
-                        // Ajustar o timezone
-                        if ($data) {
-
-
-                        $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
-                        }
-                        @endphp
+                        
                         <p class="product-price">R$ {{ number_format($precomedio, 2, ',', '.') }}</p>
                         <p class="product-date">Ultima atualização de preço: {{ $data ? $data->format('d/m/Y H:i:s') : 'Data não disponível' }}</p>
                         <p class="market-name">Mercado Economix</p>
@@ -718,19 +680,10 @@
                         if ($data) {
 
 
-                        $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
+                       $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
                         }
                         @endphp
-                        <p class="product-price">R$ {{ number_format($precomedio, 2, ',', '.') }}</p>
-                        <p class="product-date">Ultima atualização de preço: {{ $data ? $data->format('d/m/Y H:i:s') : 'Data não disponível' }}</p>
-
-                        // Ajustar o timezone
-                        if ($data) {
-
-
-                        $data = \Carbon\Carbon::parse($data)->setTimezone('America/Sao_Paulo');
-                        }
-                        @endphp
+                        
                         <p class="product-price">R$ {{ number_format($precomedio, 2, ',', '.') }}</p>
                         <p class="product-date">Ultima atualização de preço: {{ $data ? $data->format('d/m/Y H:i:s') : 'Data não disponível' }}</p>
                         <p class="market-name">Mercado Atacadinho</p>

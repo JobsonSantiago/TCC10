@@ -26,8 +26,16 @@ document.addEventListener('DOMContentLoaded', () => {
     organizarProdutos(); // Chama a função de organizar produtos
 
     // Aplica as estrelas de avaliação inicialmente
-    aplicarEventosEstrelas();
-});
+    aplicarEventosEstrelas();  
+
+    var savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+        doDemo(); // Passa para o tema escuro
+    }
+
+    
+}
+);
 
 
 // FUNÇÃO UTILIZADA PARA AVALIAR MERCADOS
@@ -89,49 +97,80 @@ function pesquisar() {
 function organizarProdutos() {
     const radios = document.querySelectorAll('input[name="flexRadioDefault"]');
 
-radios.forEach(radio => {
-    radio.addEventListener('change', function () {
-        if (this.checked) {
-            console.log("Opção de ordenação selecionada: ", this.id);
-            let produtosOrdenados = [...produtosVisiveis]; // Cópia dos produtos visíveis
+    radios.forEach(radio => {
+        radio.addEventListener('change', function () {
+            if (this.checked) {
+                console.log("Opção de ordenação selecionada: ", this.id);
+                let produtosOrdenados = [...produtosVisiveis]; // Cópia dos produtos visíveis
 
-            produtosOrdenados.sort((a, b) => {
-                const priceElementA = a.getElementsByClassName('product-price')[0];
-                const priceElementB = b.getElementsByClassName('product-price')[0];
+                produtosOrdenados.sort((a, b) => {
+                    const priceElementA = a.getElementsByClassName('product-price')[0];
+                    const priceElementB = b.getElementsByClassName('product-price')[0];
+                    const dateElementA = a.getElementsByClassName('product-date')[0];
+                    const dateElementB = b.getElementsByClassName('product-date')[0];
 
-                // Verifica se os elementos de preço existem
-                if (!priceElementA || !priceElementB) {
-                    console.error("Elemento de preço não encontrado:", priceElementA, priceElementB);
-                    return 0; // Se não encontrarmos, não ordenamos
-                }
+                    // Verifica qual tipo de ordenação foi selecionado
+                    if (this.id === 'opcaoBarato' || this.id === 'opcaoCaro') {
+                        // Ordenação por preço
+                        if (!priceElementA || !priceElementB) {
+                            console.error("Elemento de preço não encontrado:", priceElementA, priceElementB);
+                            return 0;
+                        }
 
-                // Log para ver o texto do preço antes da conversão
-                console.log("Texto do preço A:", priceElementA.innerText);
-                console.log("Texto do preço B:", priceElementB.innerText);
+                        console.log("Texto do preço A:", priceElementA.innerText);
+                        console.log("Texto do preço B:", priceElementB.innerText);
 
-                // Tenta converter o texto em número
-                const precoA = parseFloat(priceElementA.innerText.replace('R$', '').replace('.', '').replace(',', '.').trim());
-                const precoB = parseFloat(priceElementB.innerText.replace('R$', '').replace('.', '').replace(',', '.').trim());
+                        const precoA = parseFloat(priceElementA.innerText.replace('R$', '').replace('.', '').replace(',', '.').trim());
+                        const precoB = parseFloat(priceElementB.innerText.replace('R$', '').replace('.', '').replace(',', '.').trim());
 
-                // Log dos preços após a conversão
-                console.log("Preços convertidos:", precoA, precoB);
+                        if (isNaN(precoA) || isNaN(precoB)) {
+                            console.error("Erro ao converter preços:", precoA, precoB);
+                            return 0;
+                        }
 
-                // Verifica se os preços são válidos
-                if (isNaN(precoA) || isNaN(precoB)) {
-                    console.error("Erro ao converter preços:", precoA, precoB);
-                    return 0; // Se não for possível converter, não ordena
-                }
+                        return this.id === 'opcaoBarato' ? precoA - precoB : precoB - precoA;
 
-                return this.id === 'opcaoBarato' ? precoA - precoB : precoB - precoA; // Ordena com base na opção selecionada
-            });
+                    } else if (this.id === 'opcaoRecente' || this.id === 'opcaoAntigo') {
+                        // Ordenação por data
+                        if (!dateElementA || !dateElementB) {
+                            console.error("Elemento de data não encontrado:", dateElementA, dateElementB);
+                            return 0;
+                        }
 
-            // Atualiza o container com os produtos organizados
-            atualizarProdutosContainer(produtosOrdenados);
-        }
+                        console.log("Texto da data A:", dateElementA.innerText);
+                        console.log("Texto da data B:", dateElementB.innerText);
+
+                        const dataRegex = /(\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}:\d{2})/;
+                        const matchA = dateElementA.innerText.match(dataRegex);
+                        const matchB = dateElementB.innerText.match(dataRegex);
+
+                        const dataA = matchA ? new Date(matchA[0].split('/').reverse().join('-')) : null;
+                        const dataB = matchB ? new Date(matchB[0].split('/').reverse().join('-')) : null;
+
+                        // Tratamento para datas inválidas
+                        if (!dataA || isNaN(dataA)) {
+                            console.warn("Data inválida em A:", dateElementA.innerText);
+                        }
+                        if (!dataB || isNaN(dataB)) {
+                            console.warn("Data inválida em B:", dateElementB.innerText);
+                        }
+
+                        // Definindo datas inválidas como maiores ou menores, dependendo da ordenação
+                        if (!dataA && !dataB) return 0;
+                        if (!dataA) return this.id === 'opcaoRecente' ? 1 : -1;
+                        if (!dataB) return this.id === 'opcaoRecente' ? -1 : 1;
+
+                        return this.id === 'opcaoRecente' ? dataB - dataA : dataA - dataB;
+                    }
+                });
+
+                // Atualiza o container com os produtos organizados
+                atualizarProdutosContainer(produtosOrdenados);
+            }
+        });
     });
-});
-
 }
+
 
 // Função para atualizar o container de produtos
 function atualizarProdutosContainer(produtos) {
@@ -275,4 +314,213 @@ function selectProduct(product) {
     // Verifica se o modal está sendo fechado corretamente
     const modal = bootstrap.Modal.getInstance(document.getElementById('myModal'));
     modal.hide();
+}
+
+function doDemo(button) {
+    var body = document.body;
+    var produtosCard = document.getElementsByClassName("product-card");
+    var marketNames = document.getElementsByClassName("market-name");
+    var productNames = document.getElementsByClassName("product-name");
+    var mercadosDetails = document.getElementsByClassName("market-details");
+    var produtosHome = document.getElementById("produtos-home");
+    var produtosPesquisa = document.getElementById("produtos-pesquisa");
+    var dashboardContainer = document.getElementsByClassName("data-card");
+    var sidebar = document.getElementsByClassName("sidebar");
+    var cadastroContainer = document.getElementById("cadastro-container");
+    var inputElements = document.getElementsByTagName("input");
+    var selectElements = document.getElementsByTagName("select");
+    var welcomeAlert = document.querySelector(".alert-success"); // Alerta de boas-vindas
+    var loginAlert = document.querySelector(".alert-danger"); // Alerta de não logado
+    var modalContent = document.getElementsByClassName("modal-content"); // Captura os conteúdos do modal
+    var cardElements = document.querySelectorAll(".card.text-left.h-100"); // Seleciona todos os cards
+
+    // Verifica se o tema atual é escuro e alterna
+    if (body.style.backgroundColor === "rgb(30, 30, 30)" || body.style.backgroundColor === "black") {
+        // Tema claro
+        body.style.backgroundColor = "white";
+        body.style.color = "#343a40";
+
+        for (var i = 0; i < produtosCard.length; i++) {
+            produtosCard[i].style.backgroundColor = "#e0e0e0";
+            produtosCard[i].style.color = "black";
+        }
+
+        for (var i = 0; i < cardElements.length; i++) {
+            cardElements[i].style.backgroundColor = "#e0e0e0"; // Fundo claro para os cards
+            cardElements[i].style.color = "black"; // Texto escuro
+        }
+
+        for (var i = 0; i < marketNames.length; i++) {
+            marketNames[i].style.color = "#343a40";
+        }
+
+        for (var i = 0; i < productNames.length; i++) {
+            productNames[i].style.color = "#343a40";
+        }
+
+        for (var i = 0; i < mercadosDetails.length; i++) {
+            mercadosDetails[i].style.backgroundColor = "#f8f9fa";
+        }
+
+        if (produtosHome) produtosHome.style.backgroundColor = "#f8f9fa";
+        if (produtosPesquisa) produtosPesquisa.style.backgroundColor = "#f8f9fa";
+
+        for (var i = 0; i < dashboardContainer.length; i++) {
+            dashboardContainer[i].style.backgroundColor = "#f8f9fa";
+            dashboardContainer[i].style.color = "#343a40";
+            var dashboardTextElements = dashboardContainer[i].getElementsByTagName("*");
+            for (var j = 0; j < dashboardTextElements.length; j++) {
+                dashboardTextElements[j].style.color = "#343a40";
+            }
+        }
+
+        for (var i = 0; i < sidebar.length; i++) {
+            sidebar[i].style.backgroundColor = "#f8f9fa";
+            sidebar[i].style.color = "#343a40";
+            var sidebarTextElements = sidebar[i].getElementsByTagName("*");
+            for (var j = 0; j < sidebarTextElements.length; j++) {
+                sidebarTextElements[j].style.color = "#343a40";
+            }
+        }
+
+        for (var i = 0; i < inputElements.length; i++) {
+            inputElements[i].style.backgroundColor = "white";
+            inputElements[i].style.color = "#343a40";
+            inputElements[i].style.borderColor = "#343a40";
+        }
+
+        for (var i = 0; i < selectElements.length; i++) {
+            selectElements[i].style.backgroundColor = "white";
+            selectElements[i].style.color = "#343a40";
+            selectElements[i].style.borderColor = "#343a40";
+        }
+
+        if (cadastroContainer) {
+            cadastroContainer.style.backgroundColor = "#f8f9fa";
+            cadastroContainer.style.color = "#343a40";
+
+            var cadastroTextElements = cadastroContainer.getElementsByTagName("label");
+            for (var i = 0; i < cadastroTextElements.length; i++) {
+                cadastroTextElements[i].style.color = "#343a40";
+            }
+        }
+
+        // Estilo para o alerta de boas-vindas
+        if (welcomeAlert) {
+            welcomeAlert.style.backgroundColor = "#d4edda"; // Fundo claro
+            welcomeAlert.style.color = "#155724"; // Texto escuro
+        }
+
+        // Estilo para o alerta de não logado
+        if (loginAlert) {
+            loginAlert.style.backgroundColor = "#f8d7da"; // Fundo claro
+            loginAlert.style.color = "#721c24"; // Texto escuro
+        }
+
+        // Estilo para o conteúdo do modal
+        for (var i = 0; i < modalContent.length; i++) {
+            modalContent[i].style.backgroundColor = "#ffffff"; // Fundo claro
+            modalContent[i].style.color = "#343a40"; // Texto escuro
+        }
+
+        localStorage.setItem("theme", "light");
+    } else {
+        // Tema escuro
+        body.style.backgroundColor = "#1e1e1e";
+        body.style.color = "#ffffff"; // Texto branco para o body
+
+        for (var i = 0; i < produtosCard.length; i++) {
+            produtosCard[i].style.backgroundColor = "#343a40";
+            produtosCard[i].style.color = "#ffffff"; // Texto branco nos cartões
+        }
+
+        for (var i = 0; i < cardElements.length; i++) {
+            cardElements[i].style.backgroundColor = "#343a40"; // Fundo escuro para os cards
+            cardElements[i].style.color = "#ffffff"; // Texto branco
+        }
+
+        for (var i = 0; i < marketNames.length; i++) {
+            marketNames[i].style.color = "#ffffff"; // Texto branco nos nomes de mercado
+        }
+
+        for (var i = 0; i < productNames.length; i++) {
+            productNames[i].style.color = "#ffffff"; // Texto branco nos nomes de produtos
+        }
+
+        for (var i = 0; i < mercadosDetails.length; i++) {
+            mercadosDetails[i].style.backgroundColor = "#343a40"; // Fundo escuro nos detalhes dos mercados
+        }
+
+        if (produtosHome) produtosHome.style.backgroundColor = "#343a40"; // Fundo escuro
+        if (produtosPesquisa) produtosPesquisa.style.backgroundColor = "#343a40"; // Fundo escuro
+
+        for (var i = 0; i < dashboardContainer.length; i++) {
+            dashboardContainer[i].style.backgroundColor = "#343a40"; // Fundo escuro no dashboard
+            dashboardContainer[i].style.color = "#ffffff"; // Texto branco no dashboard
+            var dashboardTextElements = dashboardContainer[i].getElementsByTagName("*");
+            for (var j = 0; j < dashboardTextElements.length; j++) {
+                dashboardTextElements[j].style.color = "#ffffff"; // Texto branco
+            }
+        }
+
+        for (var i = 0; i < sidebar.length; i++) {
+            sidebar[i].style.backgroundColor = "#343a40"; // Fundo escuro na sidebar
+            sidebar[i].style.color = "#ffffff"; // Texto branco na sidebar
+            var sidebarTextElements = sidebar[i].getElementsByTagName("*");
+            for (var j = 0; j < sidebarTextElements.length; j++) {
+                sidebarTextElements[j].style.color = "#ffffff"; // Texto branco
+            }
+        }
+
+        for (var i = 0; i < inputElements.length; i++) {
+            inputElements[i].style.backgroundColor = "#2c2c2c"; // Fundo escuro
+            inputElements[i].style.color = "#ffffff"; // Texto branco
+            inputElements[i].style.borderColor = "#ffffff"; // Borda clara
+            inputElements[i].style.setProperty('--placeholder-color', '#ffffff'); // Define a cor do placeholder
+
+            
+        }
+
+        for (var i = 0; i < selectElements.length; i++) {
+            selectElements[i].style.backgroundColor = "#2c2c2c"; // Fundo escuro
+            selectElements[i].style.color = "#ffffff"; // Texto branco
+            selectElements[i].style.borderColor = "#ffffff"; // Borda clara
+            selectElements[i].style.setProperty('--placeholder-color', '#ffffff'); // Define a cor do placeholder
+
+        }
+
+        if (cadastroContainer) {
+            cadastroContainer.style.backgroundColor = "#343a40"; // Fundo escuro no cadastro
+            cadastroContainer.style.color = "#ffffff"; // Texto branco
+
+            var cadastroTextElements = cadastroContainer.getElementsByTagName("label");
+            for (var i = 0; i < cadastroTextElements.length; i++) {
+                cadastroTextElements[i].style.color = "#ffffff"; // Texto branco nos rótulos
+            }
+        }
+
+        // Estilo para o alerta de boas-vindas no tema escuro
+        if (welcomeAlert) {
+            welcomeAlert.style.backgroundColor = "#155724"; // Fundo mais escuro
+            welcomeAlert.style.color = "#ffffff"; // Texto branco
+        }
+
+        // Estilo para o alerta de não logado no tema escuro
+        if (loginAlert) {
+            loginAlert.style.backgroundColor = "#721c24"; // Fundo mais escuro
+            loginAlert.style.color = "#ffffff"; // Texto branco
+        }
+
+        // Estilo para o conteúdo do modal no tema escuro
+        for (var i = 0; i < modalContent.length; i++) {
+            modalContent[i].style.backgroundColor = "#343a40"; // Fundo escuro
+            modalContent[i].style.color = "#ffffff"; // Texto branco
+        }
+        var allElements = body.getElementsByTagName("*");
+        for (var i = 0; i < allElements.length; i++) {
+            allElements[i].style.color = "#ffffff"; // Texto branco
+        }
+
+        localStorage.setItem("theme", "dark");
+    }
 }

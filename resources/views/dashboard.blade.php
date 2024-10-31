@@ -9,6 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Inclusão do JavaScript -->
+    <script src="{{ asset('js/scriptsprodutos.js') }}"></script>
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
@@ -165,7 +167,8 @@
                 font-size: 1.5rem;
             }
 
-            .btn-save, .btn-delete {
+            .btn-save,
+            .btn-delete {
                 width: 100%;
             }
         }
@@ -193,6 +196,8 @@
                 <li class="active"><a href="dashboard">Dados pessoais</a></li>
                 <li><a href="meus_favoritos">Favoritos</a></li>
                 <li><a href="logout">Sair</a></li>
+                <button type="button" class="btn btn-primary" onclick="doDemo(this);">Mudar Tema</button>
+
             </ul>
         </div>
 
@@ -222,7 +227,7 @@
                         </div>
                         @endif
                     </div>
-                    <button type="submit" class="btn btn-save">Salvar</button>
+                        <x-primary-button class="btn btn-save">{{ __('Salvar') }}</x-primary-button>
                 </form>
             </div>
 
@@ -275,43 +280,41 @@
                     @csrf
                     @method('delete')
                     <button type="submit" class="btn btn-delete">Deletar Conta</button>
-                    <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
+
+                    <x-modal id="modal-deletar" name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
                         <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
                             @csrf
                             @method('delete')
+                            <div class="modal-content">
+                                <br>
+                                <h2 class="text-lg font-medium text-gray-900">
+                                    {{ __('Você tem certeza que deseja deletar sua conta?') }}
+                                </h2>
 
-                            <br>
-                            <h2 class="text-lg font-medium text-gray-900">
-                                {{ __('Você tem certeza que deseja deletar sua conta?') }}
-                            </h2>
+                                <p class="mt-1 text-sm text-gray-600">
+                                    {{ __('Uma vez que sua conta for deletada, todos os seus recursos e dados serão permanentemente excluídos. Por favor, insira sua senha para confirmar que você deseja deletar sua conta permanentemente.') }}
+                                </p>
 
-                            <p class="mt-1 text-sm text-gray-600">
-                                {{ __('Uma vez que sua conta for deletada, todos os seus recursos e dados serão permanentemente excluídos. Por favor, insira sua senha para confirmar que você deseja deletar sua conta permanentemente.') }}
-                            </p>
+                                <div class="mt-6">
+                                    <x-input-label for="password" value="{{ __('Senha') }}" class="sr-only" />
 
-                            <div class="mt-6">
-                                <x-input-label for="password" value="{{ __('Senha') }}" class="sr-only" />
+                                    <x-text-input
+                                        id="password"
+                                        name="password"
+                                        type="password"
+                                        class="mt-1 block w-3/4"
+                                        placeholder="{{ __('Senha') }}" />
 
-                                <x-text-input
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    class="mt-1 block w-3/4"
-                                    placeholder="{{ __('Senha') }}" />
+                                    <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
+                                </div>
 
-                                <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
-                            </div>
-
-                            <div class="mt-6 flex justify-end">
-                                <x-secondary-button x-on:click="$dispatch('close')">
-                                    {{ __('Cancelar') }}
-                                </x-secondary-button>
-
-                                <button type="submit" class="btn btn-delete">Deletar</button>
-
+                                <div class="mt-6 flex justify-end">
+                                    <button type="submit" class="btn btn-delete">Deletar</button>
+                                </div>
                             </div>
                         </form>
                     </x-modal>
+
                 </form>
             </div>
         </div>
