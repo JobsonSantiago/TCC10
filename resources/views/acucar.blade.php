@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Inclusão do JavaScript -->
     <script src="{{ asset('js/scriptsprodutos.js') }}"></script>
-
+    <script src="{{ asset('js/scripttema.js') }}"></script>
 
 
     <!-- Custom CSS -->
@@ -110,7 +110,9 @@
         <div class="container mt-4">
             <div class="row justify-content-center">
                 <div class="col-md-6">
+                    <label for="name_product" class="form-label">Nome do Produto:</label>
                     <input type="text" id="produtoDigitado" class="form-control mb-2" placeholder="Pesquisar produto..." onkeyup="pesquisar()">
+                    <label for="name_market" class="form-label">Nome do Mercado:</label>
                     <input type="text" id="mercadoDigitado" class="form-control" placeholder="Pesquisar mercado..." onkeyup="pesquisar()">
                 </div>
             </div>
@@ -143,6 +145,12 @@
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="opcaoAntigo" onchange="ordenarProdutos()">
                             <label class="form-check-label" for="opcaoAntigo">
                                 Mais antigo ao mais recente
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="opcaoAvaliacao" onchange="ordenarProdutos()">
+                            <label class="form-check-label" for="opcaoAvaliacao">
+                                Organizar pelo número de avaliações
                             </label>
                         </div>
                     </div>
@@ -217,7 +225,7 @@
                                 ->count();
                                 @endphp
                                 <h6 class="mt-4">Quantidade de Avaliações:</h6>
-                                <p class="text-success">O preço está correto: <strong>{{ $correto }}</strong></p>
+                                <p id="product-quantity" class="text-success">O preço está correto: <strong>{{ $correto }}</strong></p>
                                 <p class="text-danger">O preço está incorreto: <strong>{{ $incorreto }}</strong></p>
                             </div>
                         </form>
@@ -287,7 +295,7 @@
                                 ->count();
                                 @endphp
                                 <h6 class="mt-4">Quantidade de Avaliações:</h6>
-                                <p class="text-success">O preço está correto: <strong>{{ $correto }}</strong></p>
+                                <p id="product-quantity" class="text-success">O preço está correto: <strong>{{ $correto }}</strong></p>
                                 <p class="text-danger">O preço está incorreto: <strong>{{ $incorreto }}</strong></p>
                             </div>
                         </form>
@@ -357,7 +365,7 @@
                                 ->count();
                                 @endphp
                                 <h6 class="mt-4">Quantidade de Avaliações:</h6>
-                                <p class="text-success">O preço está correto: <strong>{{ $correto }}</strong></p>
+                                <p id="product-quantity" class="text-success">O preço está correto: <strong>{{ $correto }}</strong></p>
                                 <p class="text-danger">O preço está incorreto: <strong>{{ $incorreto }}</strong></p>
                             </div>
                         </form>
@@ -428,7 +436,7 @@
                                 ->count();
                                 @endphp
                                 <h6 class="mt-4">Quantidade de Avaliações:</h6>
-                                <p class="text-success">O preço está correto: <strong>{{ $correto }}</strong></p>
+                                <p id="product-quantity" class="text-success">O preço está correto: <strong>{{ $correto }}</strong></p>
                                 <p class="text-danger">O preço está incorreto: <strong>{{ $incorreto }}</strong></p>
                             </div>
                         </form>
@@ -499,7 +507,7 @@
                                 ->count();
                                 @endphp
                                 <h6 class="mt-4">Quantidade de Avaliações:</h6>
-                                <p class="text-success">O preço está correto: <strong>{{ $correto }}</strong></p>
+                                <p id="product-quantity" class="text-success">O preço está correto: <strong>{{ $correto }}</strong></p>
                                 <p class="text-danger">O preço está incorreto: <strong>{{ $incorreto }}</strong></p>
                             </div>
                         </form>
@@ -570,7 +578,7 @@
                                 ->count();
                                 @endphp
                                 <h6 class="mt-4">Quantidade de Avaliações:</h6>
-                                <p class="text-success">O preço está correto: <strong>{{ $correto }}</strong></p>
+                                <p id="product-quantity" class="text-success">O preço está correto: <strong>{{ $correto }}</strong></p>
                                 <p class="text-danger">O preço está incorreto: <strong>{{ $incorreto }}</strong></p>
                             </div>
                         </form>
@@ -641,7 +649,7 @@
                                 ->count();
                                 @endphp
                                 <h6 class="mt-4">Quantidade de Avaliações:</h6>
-                                <p class="text-success">O preço está correto: <strong>{{ $correto }}</strong></p>
+                                <p id="product-quantity" class="text-success">O preço está correto: <strong>{{ $correto }}</strong></p>
                                 <p class="text-danger">O preço está incorreto: <strong>{{ $incorreto }}</strong></p>
                             </div>
                         </form>
@@ -712,7 +720,7 @@
                                 ->count();
                                 @endphp
                                 <h6 class="mt-4">Quantidade de Avaliações:</h6>
-                                <p class="text-success">O preço está correto: <strong>{{ $correto }}</strong></p>
+                                <p id="product-quantity" class="text-success">O preço está correto: <strong>{{ $correto }}</strong></p>
                                 <p class="text-danger">O preço está incorreto: <strong>{{ $incorreto }}</strong></p>
                             </div>
                         </form>

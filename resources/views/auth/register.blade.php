@@ -13,6 +13,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Inclusão do JavaScript -->
+    <script src="{{ asset('js/scripttema.js') }}"></script>
 
     <!-- Custom CSS -->
     <style>
@@ -29,45 +31,62 @@
             font-family: 'Montserrat', sans-serif;
         }
 
-    .input-icon {
-    position: absolute;
-    right: 15px; /* Ajusta a posição para que fique dentro do campo */
-    top: 50%; /* Centraliza verticalmente */
-    transform: translateY(-50%); /* Ajuste fino */
-    cursor: pointer;
-    z-index: 2; /* Garante que o botão esteja acima do campo */
-}
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            /* Ajusta a posição para que fique dentro do campo */
+            top: 50%;
+            /* Centraliza verticalmente */
+            transform: translateY(-50%);
+            /* Ajuste fino */
+            cursor: pointer;
+            z-index: 2;
+            /* Garante que o botão esteja acima do campo */
+        }
 
-.input-icon button {
-    background: transparent; /* Sem fundo */
-    border: none;           /* Remove borda */
-    outline: none;         /* Remove contorno */
-    color: black;          /* Cor do ícone do olho */
-    cursor: pointer;       /* Muda o cursor para mão ao passar por cima */
-}
+        .input-icon button {
+            background: transparent;
+            /* Sem fundo */
+            border: none;
+            /* Remove borda */
+            outline: none;
+            /* Remove contorno */
+            color: black;
+            /* Cor do ícone do olho */
+            cursor: pointer;
+            /* Muda o cursor para mão ao passar por cima */
+        }
 
-.input-icon button:hover {
-    color: #28a745; /* Cor ao passar o mouse */
-}
+        .input-icon button:hover {
+            color: #28a745;
+            /* Cor ao passar o mouse */
+        }
 
-.mb-3 {
-    position: relative; /* Mantém a posição relativa para o ícone */
-}
-.toggle-password {
-    background: none;
-    border: none;
-    cursor: pointer;
-    outline: none;
-}
+        .mb-3 {
+            position: relative;
+            /* Mantém a posição relativa para o ícone */
+        }
 
-#error {
-    margin-top: 5px; /* Espaçamento acima da mensagem de erro */
-    color: red; /* Cor da mensagem de erro */
-}
+        .toggle-password {
+            background: none;
+            border: none;
+            cursor: pointer;
+            outline: none;
+        }
 
-input[type="password"], input[type="text"] {
-    padding-right: 40px; /* Para dar espaço ao ícone */
-}
+        #error {
+            margin-top: 5px;
+            /* Espaçamento acima da mensagem de erro */
+            color: red;
+            /* Cor da mensagem de erro */
+        }
+
+        input[type="password"],
+        input[type="text"] {
+            padding-right: 40px;
+            /* Para dar espaço ao ícone */
+        }
+
         /* Aplica o fundo completo para garantir que ele não desapareça */
         #name.input-with-icon,
         #email.input-with-icon,
@@ -174,8 +193,8 @@ input[type="password"], input[type="text"] {
         /* Efeitos de foco e luz */
         .form-control.custom-focus:focus {
             box-shadow: 0 0 20px rgba(40, 167, 69, 1) !important,
-                        0 0 40px rgba(40, 167, 69, 0.7) !important,
-                        0 0 60px rgba(40, 167, 69, 0.5) !important;
+                0 0 40px rgba(40, 167, 69, 0.7) !important,
+                0 0 60px rgba(40, 167, 69, 0.5) !important;
             border-color: #28a745 !important;
             outline: none !important;
         }
@@ -207,13 +226,13 @@ input[type="password"], input[type="text"] {
 
             <!-- Exibição de erros -->
             @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
             @endif
 
             <!-- Formulário de Cadastro -->
@@ -222,51 +241,51 @@ input[type="password"], input[type="text"] {
 
                 <!-- Nome -->
                 <div class="mb-3 position-relative">
-                    <x-text-input id="name" 
-                                  class="form-control custom-rounded custom-focus input-with-icon" 
-                                  type="text" name="name" 
-                                  :value="old('name')" 
-                                  required autofocus placeholder="Nome" />
+                    <x-text-input id="name"
+                        class="form-control custom-rounded custom-focus input-with-icon"
+                        type="text" name="name"
+                        :value="old('name')"
+                        required autofocus placeholder="Nome" />
                     <div id="name-error" class="mt-2 text-danger"></div>
                 </div>
 
                 <!-- E-mail -->
                 <div class="mb-3 position-relative">
-                    <x-text-input id="email" 
-                                  class="form-control custom-rounded custom-focus input-with-icon" 
-                                  type="email" name="email" 
-                                  :value="old('email')" 
-                                  required placeholder="E-mail" />
+                    <x-text-input id="email"
+                        class="form-control custom-rounded custom-focus input-with-icon"
+                        type="email" name="email"
+                        :value="old('email')"
+                        required placeholder="E-mail" />
                     <div id="email-error" class="mt-2 text-danger"></div>
                 </div>
 
-<!-- Senha -->
-<div class="mb-3 position-relative">
-    <x-text-input id="password" 
-                  class="form-control custom-rounded custom-focus input-with-icon" 
-                  type="password" name="password" 
-                  required placeholder="Senha" />
-    <div class="input-icon">
-        <button type="button" class="toggle-password" id="togglePassword">
-            <i class="fas fa-eye"></i>
-        </button>
-    </div>
-</div>
-<div id="password-error" class="mt-2 text-danger"></div> <!-- Mensagem de erro -->
+                <!-- Senha -->
+                <div class="mb-3 position-relative">
+                    <x-text-input id="password"
+                        class="form-control custom-rounded custom-focus input-with-icon"
+                        type="password" name="password"
+                        required placeholder="Senha" />
+                    <div class="input-icon">
+                        <button type="button" class="toggle-password" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="password-error" class="mt-2 text-danger"></div> <!-- Mensagem de erro -->
 
-<!-- Confirmar Senha -->
-<div class="mb-3 position-relative">
-    <x-text-input id="password_confirmation" 
-                  class="form-control custom-rounded custom-focus input-with-icon" 
-                  type="password" name="password_confirmation" 
-                  required placeholder="Confirmar Senha" />
-    <div class="input-icon">
-        <button type="button" class="toggle-password" id="togglePasswordConfirmation">
-            <i class="fas fa-eye"></i> <!-- Ícone inicial deve ser o olho fechado -->
-        </button>
-    </div>
-</div>
-<div id="password-confirmation-error" class="mt-2 text-danger"></div> <!-- Mensagem de erro -->
+                <!-- Confirmar Senha -->
+                <div class="mb-3 position-relative">
+                    <x-text-input id="password_confirmation"
+                        class="form-control custom-rounded custom-focus input-with-icon"
+                        type="password" name="password_confirmation"
+                        required placeholder="Confirmar Senha" />
+                    <div class="input-icon">
+                        <button type="button" class="toggle-password" id="togglePasswordConfirmation">
+                            <i class="fas fa-eye"></i> <!-- Ícone inicial deve ser o olho fechado -->
+                        </button>
+                    </div>
+                </div>
+                <div id="password-confirmation-error" class="mt-2 text-danger"></div> <!-- Mensagem de erro -->
 
                 <!-- Botão de Cadastro -->
                 <div class="d-grid">
@@ -350,32 +369,32 @@ input[type="password"], input[type="text"] {
             });
         });
 
-// JavaScript para alternar a visibilidade da senha
-document.querySelectorAll('.toggle-password').forEach(button => {
-    // Seleciona o input de senha correspondente ao botão
-    const passwordField = button.closest('.mb-3').querySelector('input'); // Altera para o campo correto
-    const icon = button.querySelector('i');
+        // JavaScript para alternar a visibilidade da senha
+        document.querySelectorAll('.toggle-password').forEach(button => {
+            // Seleciona o input de senha correspondente ao botão
+            const passwordField = button.closest('.mb-3').querySelector('input'); // Altera para o campo correto
+            const icon = button.querySelector('i');
 
-    // Garantir que o campo de senha comece oculto
-    passwordField.setAttribute('type', 'password');
-    icon.classList.remove('fa-eye'); // Ícone inicial deve ser o olho fechado
-    icon.classList.add('fa-eye-slash'); // Ícone do olho fechado
+            // Garantir que o campo de senha comece oculto
+            passwordField.setAttribute('type', 'password');
+            icon.classList.remove('fa-eye'); // Ícone inicial deve ser o olho fechado
+            icon.classList.add('fa-eye-slash'); // Ícone do olho fechado
 
-    button.addEventListener('click', function() {
-        // Alterna o tipo do input entre 'password' e 'text'
-        const isPassword = passwordField.getAttribute('type') === 'password';
-        passwordField.setAttribute('type', isPassword ? 'text' : 'password');
+            button.addEventListener('click', function() {
+                // Alterna o tipo do input entre 'password' e 'text'
+                const isPassword = passwordField.getAttribute('type') === 'password';
+                passwordField.setAttribute('type', isPassword ? 'text' : 'password');
 
-        // Troca o ícone conforme a visibilidade
-        if (isPassword) {
-            icon.classList.remove('fa-eye-slash'); // Olho fechado
-            icon.classList.add('fa-eye'); // Olho aberto
-        } else {
-            icon.classList.remove('fa-eye'); // Olho aberto
-            icon.classList.add('fa-eye-slash'); // Olho fechado
-        }
-    });
-});
+                // Troca o ícone conforme a visibilidade
+                if (isPassword) {
+                    icon.classList.remove('fa-eye-slash'); // Olho fechado
+                    icon.classList.add('fa-eye'); // Olho aberto
+                } else {
+                    icon.classList.remove('fa-eye'); // Olho aberto
+                    icon.classList.add('fa-eye-slash'); // Olho fechado
+                }
+            });
+        });
 
         // Função para validar o e-mail
         function validateEmail(email) {

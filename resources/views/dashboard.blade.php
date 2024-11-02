@@ -10,8 +10,8 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <!-- Inclusão do JavaScript -->
-    <script src="{{ asset('js/scriptsprodutos.js') }}"></script>
-    <style>
+<script src="{{ asset('js/scriptsprodutos.js') }}"></script>
+    <script src="{{ asset('js/scripttema.js') }}"></script>    <style>
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: #f8f9fa;

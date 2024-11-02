@@ -6,8 +6,10 @@ use App\Http\Controllers\FavoritoController;
 use App\Http\Controllers\AvaliacaoProdutoController;
 use App\Http\Controllers\AvaliacaoMercadoController;
 use App\Http\Controllers\ProdutosCaracteristicasController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use PhpOption\Option;
 
 //* Página inicial
@@ -193,5 +195,15 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Auth::routes(['reset' => true]);
+
+// Rota para exibir o formulário de recuperação de senha
+Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
+    ->name('password.request');
+
+// Rota para processar a solicitação de envio do link de redefinição
+Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
+    ->name('password.email');
 
 require __DIR__ . '/auth.php';

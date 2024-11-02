@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="style.css">
     <!-- Inclusão do JavaScript -->
     <script src="{{ asset('js/scriptsprodutos.js') }}"></script>
+    <script src="{{ asset('js/scripttema.js') }}"></script>
+    <script src="{{ asset('js/scriptscadastro.js') }}"></script>
+
     <style>
 
         /* Estilo para garantir que o rodapé fique na parte inferior */
@@ -365,7 +368,7 @@
                     <label for="valor_produto" class="form-label">Valor do Produto</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-                        <input type="number" class="form-control" id="preco" name="preco" step="0.01" min="0" placeholder="Digite o valor do Produto">
+                        <input type="number" class="form-control" id="preco" name="preco" step="0.01" min="0" placeholder="Digite o Valor do Produto">
                         <button type="button" class="btn btn-info btn-sm custom-tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="Digite exatamente igual o valor do produto conforme está listado no mercado">
                             <i class="fas fa-info-circle"></i>
                         </button>
